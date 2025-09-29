@@ -1,4 +1,7 @@
-http.host: "0.0.0.0"
+api.http.host: "0.0.0.0"
+api.http.port: 9600
+
+xpack.monitoring.enabled: false
 xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
 
 pipeline.workers: 2
