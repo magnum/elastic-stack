@@ -1,12 +1,5 @@
 server.name: kibana
 server.host: 0.0.0.0
-
 elasticsearch.hosts: ["http://elasticsearch:9200"]
-
-xpack.encryptedSavedObjects.encryptionKey: 36c47babada9ba5ed5466cac02347e38
-xpack.reporting.encryptionKey: 5c516b012c15f4a9f47e9feb46151b1e
-xpack.security.encryptionKey: 8399ab1c90068325ed37deaf0deaf3bf
-
-xpack.intercepts.enabled: true
 monitoring.ui.container.elasticsearch.enabled: true
 

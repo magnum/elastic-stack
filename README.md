@@ -22,14 +22,7 @@ crontab -e
 0 * * * * cd /path/to/elastic-stack && ./sync-logs.sh
 ```
 
-Set kibana keys 
-```
-docker exec kibana /usr/share/kibana/bin/kibana-encryption-keys generate
-```
-add them to ``config/kibana/kibana.yml` and restart kibana container 
-```
-docker compose restart kibana
-```
+Copy ```.env.sample``` to ```.env``` and set values 
 
 ## Run
 ```
