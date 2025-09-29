@@ -1,6 +1,6 @@
 # elastic-stack
 
-*elastic-stack* is a dockerized enviroment to ingest logs in *elasticsearch* from different projects using *filebeat* via *logstash* and analyze them in *kibana*
+**elastic-stack** is a dockerized enviroment to ingest logs in **elasticsearch** from different projects using **filebeat** via **logstash** and analyze them in **kibana**
 
 ## Setup 
 ```
