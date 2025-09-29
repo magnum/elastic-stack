@@ -1,0 +1,46 @@
+filebeat.inputs:
+
+# PROJECT 1
+- type: filestream
+  enabled: true
+  id: project1-access
+  paths:
+    - /logs/project1/access_log*
+    - /logs/project1/access_log.processed
+    - /logs/project1/access_ssl_log
+    - /logs/project1/access_ssl_log.processed
+    - /logs/project1/proxy_access_log
+    - /logs/project1/proxy_access_ssl_log
+  fields:
+    project: project1
+    log_type: access
+    environment: production
+  fields_under_root: true
+  scan_frequency: 10s
+
+- type: filestream
+  enabled: true
+  id: project1-error
+  paths:
+    - /logs/project1/error_log*
+    - /logs/project1/proxy_error_log
+  fields:
+    project: project1
+    log_type: error
+    environment: production
+  fields_under_root: true
+  scan_frequency: 10s
+
+
+# Output to Logstash
+output.logstash:
+  hosts: ["logstash:5044"]
+  compression_level: 3
+
+# Logging
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /tmp
+  name: filebeat
+  keepfiles: 2

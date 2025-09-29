@@ -1,0 +1,4 @@
+data/*
+logs/*
+sync*.sh
+!sync.sample.sh
