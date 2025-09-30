@@ -4,5 +4,5 @@ api.http.port: 9600
 xpack.monitoring.enabled: false
 xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
 
-pipeline.workers: 2
+pipeline.workers: 1
 pipeline.batch.size: 125
