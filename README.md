@@ -43,9 +43,9 @@ Add script to cron
 ```
 crontab -e
 # every 15 minutes
-*/15 * * * * cd /path/to/elastic-stack && ./sync-logs.sh
+*/15 * * * * cd /path/to/elastic-stack && ./sync-logs.sh >> sync-logs.log 2>&1
 # every hour
-0 * * * * cd /path/to/elastic-stack && ./sync-logs.sh
+0 * * * * cd /path/to/elastic-stack && ./sync-logs.sh >> sync-logs.log 2>&1
 ```
 
 ## Useful commands
