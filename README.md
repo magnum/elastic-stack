@@ -38,7 +38,10 @@ Use nginx reserve proxy or a service like cloudflare to protect the traffic to y
 
 ## Set cron tasks for log ingestion
 
-Setup scripts that sync logs from remote in local folders by copying `sync.sample.sh` 
+Setup scripts that sync logs from remote in local folders by copying
+* `sync_ftp.sample.sh` to sync via ftp
+* `sync_ssh.sample.sh` to sync via ssh   
+
 Add script to cron 
 ```
 crontab -e
