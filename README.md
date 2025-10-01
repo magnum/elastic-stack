@@ -40,7 +40,7 @@ Use nginx reserve proxy or a service like cloudflare to protect the traffic to y
 
 Setup scripts that sync logs from remote in local folders by copying
 * `sync_ftp.sample.sh` to sync via ftp
-* `sync_ssh.sample.sh` to sync via ssh   
+* `sync_rsync.sample.sh` to sync via rsync, ssh required  
 
 Add script to cron 
 ```
