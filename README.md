@@ -33,6 +33,11 @@ docker compose up
 Setup as a system service
 TBD
 
+OPTIONALLY, but highly suggested  
+Use nginx reserve proxy or a service like cloudflare to protect the traffic to your kibana exposed dashboard on port `9200` by default.
+
+## Set cron tasks for log ingestion
+
 Setup scripts that sync logs from remote in local folders by copying `sync.sample.sh` 
 Add script to cron 
 ```
