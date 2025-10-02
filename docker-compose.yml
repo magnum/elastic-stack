@@ -71,7 +71,6 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
       - ./config/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./config/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
       - ./config/logstash/pipeline:/usr/share/logstash/pipeline:ro
       - ./logs:/logs:ro  # Log directory read-only
     ports:

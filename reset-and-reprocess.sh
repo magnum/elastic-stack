@@ -54,10 +54,7 @@ print_status "Validating configuration files..."
 # Verifica che tutti i file di configurazione esistano
 CONFIG_FILES=(
     "config/logstash/logstash.yml"
-    "config/logstash/pipelines.yml"
-    "config/logstash/pipeline/apache-access.conf"
-    "config/logstash/pipeline/apache-error.conf"
-    "config/logstash/pipeline/php-error.conf"
+    "config/logstash/pipeline/main.conf"
     "config/filebeat/filebeat.yml"
     "config/elasticsearch/elasticsearch.yml"
     "config/kibana/kibana.yml"
@@ -106,28 +103,16 @@ done
 echo ""
 print_status "✓ Kibana is ready"
 
-# 8. Verificare che i pipeline siano caricati
-print_status "Checking Logstash pipelines..."
-sleep 10  # Aspetta che i pipeline siano caricati
+# 8. Verificare che il pipeline principale sia caricato
+print_status "Checking Logstash pipeline..."
+sleep 10  # Aspetta che il pipeline sia caricato
 
 PIPELINES=$(curl -s http://localhost:9600/_node/pipelines | jq -r '.pipelines | keys[]' 2>/dev/null || echo "")
 
-if echo "$PIPELINES" | grep -q "apache-access-pipeline"; then
-    print_status "✓ Apache Access pipeline loaded"
+if echo "$PIPELINES" | grep -q "main"; then
+    print_status "✓ Main pipeline loaded (handles all log types with routing)"
 else
-    print_warning "⚠ Apache Access pipeline not found"
-fi
-
-if echo "$PIPELINES" | grep -q "apache-error-pipeline"; then
-    print_status "✓ Apache Error pipeline loaded"
-else
-    print_warning "⚠ Apache Error pipeline not found"
-fi
-
-if echo "$PIPELINES" | grep -q "php-error-pipeline"; then
-    print_status "✓ PHP Error pipeline loaded"
-else
-    print_warning "⚠ PHP Error pipeline not found"
+    print_warning "⚠ Main pipeline not found"
 fi
 
 # 9. Verificare gli indici
@@ -151,9 +136,10 @@ echo "   • Kibana: http://localhost:5601"
 echo "   • Elasticsearch: http://localhost:9200"
 echo ""
 echo "📋 Pipeline routing:"
-echo "   • Apache Access logs → apache-access-pipeline → apache-access-project1-YYYY.MM.DD"
-echo "   • Apache Error logs → apache-error-pipeline → apache-error-project1-YYYY.MM.DD"  
-echo "   • PHP Error logs → php-error-pipeline → php-error-project1-YYYY.MM.DD"
+echo "   • All logs → main pipeline (single port 5044)"
+echo "   • Apache Access logs → apache-access-project1-YYYY.MM.DD"
+echo "   • Apache Error logs → apache-error-project1-YYYY.MM.DD"  
+echo "   • PHP Error logs → php-error-project1-YYYY.MM.DD"
 echo ""
 echo "🔍 Expected indices:"
 echo "   • apache-access-project1-YYYY.MM.DD"
