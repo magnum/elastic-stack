@@ -12,23 +12,44 @@ create logs folders for evert project, ie.
 mkdir -p mkdir -p logs/project1
 ```
 
-Setup scripts that sync logs from remote in local folders by copying `sync.sample.sh` 
+Copy ```.env.sample``` to ```.env``` and set values of keys, then set keys and for the 1st fime start ONLY elasticsearch container
+```
+docker compose up elasticsearch
+```
+then generate che token to allow access elasticsearch from kibana by calling 
+```
+docker exec elasticsearch /usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/kibana kibana-token
+```
+and set the row in  ```.env``` like this
+```
+KIBANA_SERVICE_TOKEN=[generated token from the previous command]
+```
+
+## Run the stack
+Spin the stack with docker
+```
+docker compose up
+```
+Setup as a system service
+TBD
+
+OPTIONALLY, but highly suggested  
+Use nginx reserve proxy or a service like cloudflare to protect the traffic to your kibana exposed dashboard on port `9200` by default.
+
+## Set cron tasks for log ingestion
+
+Setup scripts that sync logs from remote in local folders by copying
+* `sync_ftp.sample.sh` to sync via ftp
+* `sync_rsync.sample.sh` to sync via rsync, ssh required  
+
 Add script to cron 
 ```
 crontab -e
 # every 15 minutes
-*/15 * * * * cd /path/to/elastic-stack && ./sync-logs.sh
+*/15 * * * * cd /path/to/elastic-stack && ./sync-logs.sh >> sync-logs.log 2>&1
 # every hour
-0 * * * * cd /path/to/elastic-stack && ./sync-logs.sh
+0 * * * * cd /path/to/elastic-stack && ./sync-logs.sh >> sync-logs.log 2>&1
 ```
-
-Copy ```.env.sample``` to ```.env``` and set values 
-
-## Run
-```
-docker compose up
-```
-
 
 ## Useful commands
 docker
