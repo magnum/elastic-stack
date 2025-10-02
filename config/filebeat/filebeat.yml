@@ -13,7 +13,7 @@ filebeat.inputs:
     - /logs/project1/proxy_access_ssl_log
   fields:
     project: project1
-    log_type: access
+    log_type: apache-access
     environment: production
   fields_under_root: true
   scan_frequency: 10s
@@ -26,7 +26,7 @@ filebeat.inputs:
     - /logs/project1/proxy_error_log
   fields:
     project: project1
-    log_type: error
+    log_type: apache-error
     environment: production
   fields_under_root: true
   scan_frequency: 10s
@@ -41,21 +41,17 @@ filebeat.inputs:
     - /var/log/apache2/php*.log
   fields:
     project: project1
-    log_type: php_error
+    log_type: php-error
     environment: production
   fields_under_root: true
   scan_frequency: 10s
 
-# Output to Logstash
+# Output to Logstash with conditional routing
 output.logstash:
   hosts: ["logstash:5044"]
   compression_level: 3
-
-# Alternative: Route different log types to different pipelines
-# output.logstash:
-#   hosts: ["logstash:5044", "logstash:5045"]
-#   compression_level: 3
-#   pipeline: "%{[log_type]}-pipeline"
+  # Route PHP errors to dedicated pipeline
+  pipeline: "%{[log_type]}-pipeline"
 
 # Logging
 logging.level: info

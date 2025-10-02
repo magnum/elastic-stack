@@ -6,3 +6,12 @@ xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
 
 pipeline.workers: 1
 pipeline.batch.size: 125
+
+# Pipeline configuration
+pipeline:
+  - name: apache-access-pipeline
+    path.config: "/usr/share/logstash/pipeline/apache-access.conf"
+  - name: apache-error-pipeline  
+    path.config: "/usr/share/logstash/pipeline/apache-error.conf"
+  - name: php-error-pipeline  
+    path.config: "/usr/share/logstash/pipeline/php-error.conf"
