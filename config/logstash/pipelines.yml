@@ -1,0 +1,12 @@
+# Pipeline configuration for multiple pipelines
+- pipeline.id: apache-access-pipeline
+  path.config: "/usr/share/logstash/pipeline/apache-access.conf"
+  pipeline.workers: 1
+
+- pipeline.id: apache-error-pipeline  
+  path.config: "/usr/share/logstash/pipeline/apache-error.conf"
+  pipeline.workers: 1
+
+- pipeline.id: php-error-pipeline
+  path.config: "/usr/share/logstash/pipeline/php-error.conf"
+  pipeline.workers: 1
