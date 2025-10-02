@@ -12,6 +12,7 @@ create logs folders for evert project, ie.
 mkdir -p mkdir -p logs/project1
 ```
 
+### env variables  
 Copy ```.env.sample``` to ```.env``` and set values of keys, then set keys and for the 1st fime start ONLY elasticsearch container
 ```
 docker compose up elasticsearch
@@ -24,6 +25,9 @@ and set the row in  ```.env``` like this
 ```
 KIBANA_SERVICE_TOKEN=[generated token from the previous command]
 ```
+
+### filebeat.yml
+copy ```config/filebeat.sample.yml``` to ```config/filebeat.yml``` and edit it.
 
 ## Run the stack
 Spin the stack with docker
