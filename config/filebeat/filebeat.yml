@@ -31,11 +31,31 @@ filebeat.inputs:
   fields_under_root: true
   scan_frequency: 10s
 
+# PHP Error Logs
+- type: filestream
+  enabled: true
+  id: project1-php-error
+  paths:
+    - /logs/project1/php_error_log*
+    - /var/log/php*.log
+    - /var/log/apache2/php*.log
+  fields:
+    project: project1
+    log_type: php_error
+    environment: production
+  fields_under_root: true
+  scan_frequency: 10s
 
 # Output to Logstash
 output.logstash:
   hosts: ["logstash:5044"]
   compression_level: 3
+
+# Alternative: Route different log types to different pipelines
+# output.logstash:
+#   hosts: ["logstash:5044", "logstash:5045"]
+#   compression_level: 3
+#   pipeline: "%{[log_type]}-pipeline"
 
 # Logging
 logging.level: info
