@@ -1,5 +1,8 @@
 data/*
 logs/*
 sync*.sh
+
+config/filebeat/filebeat.yml
 !sync.sample.sh
+
 .env
